@@ -11,10 +11,10 @@ public class Seat implements Comparable<Seat> {
     private final int column;
     private final double price;
 
-    public Seat(int row, int column) {
+    public Seat(int row, int column, double price) {
         this.row = row;
         this.column = column;
-        price = row < 5 ? 10 : 8;
+        this.price = price;
     }
 
     @Override

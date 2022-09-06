@@ -9,6 +9,7 @@ import com.cinema.model.CinemaRoom;
 import com.cinema.model.Seat;
 import com.cinema.model.Statistic;
 import com.cinema.service.BookingService;
+import com.cinema.util.SeatFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class CinemaRoomController {
     @Value("${secret}")
     private String secret;
     private final BookingService bookingService;
+    private final SeatFactory seatFactory;
     private final Statistic statistic;
 
     @GetMapping("/seats")
@@ -31,7 +33,7 @@ public class CinemaRoomController {
 
     @PostMapping("/purchase")
     public PurchasedTicket purchase(@RequestBody SeatDTO seatDTO) {
-        Seat seat = new Seat(seatDTO.getRow(), seatDTO.getColumn());
+        Seat seat = seatFactory.getSeat(seatDTO.getRow(), seatDTO.getColumn());
         UUID uuid = bookingService.purchaseSeat(seat);
         return new PurchasedTicket(uuid, seat);
     }
