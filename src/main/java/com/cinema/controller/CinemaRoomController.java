@@ -44,7 +44,7 @@ public class CinemaRoomController {
         return new ReturnedTicket(seat);
     }
 
-    @PostMapping("/stats")
+    @GetMapping("/stats")
     public Statistic stats(@RequestParam(required = false) String password) {
         if (password != null && password.equals(secret)) {
             return statistic;
