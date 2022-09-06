@@ -30,9 +30,11 @@ public class BookingService {
         return uuid;
     }
 
-    public Seat getSeatByToken(UUID uuid) {
-        Seat seat = cinemaRoom.getPurchasedSeats().get(uuid);
-        return Optional.ofNullable(seat).orElseThrow(InvalidTokenException::new);
+    public Seat refundTicket(UUID uuid) {
+        Seat seat = cinemaRoom.getPurchasedSeats().remove(uuid);
+        Optional.ofNullable(seat).orElseThrow(InvalidTokenException::new);
+        cinemaRoom.getAvailableSeats().add(seat);
+        return seat;
     }
 
     private boolean isSeatInvalid(Seat seat) {
