@@ -9,7 +9,7 @@ public class Seat implements Comparable<Seat> {
 
     private final int row;
     private final int column;
-    private final int price;
+    private final double price;
 
     public Seat(int row, int column) {
         this.row = row;
